@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>dwzMap</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
+    <style>
+        .anchorBL {
+            display:none
+        };
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li><a href="../../index.html">创建地图</a></li>
+                    <li class="active"><a href="#">添加标注</a></li>
+                    <li><a href="../showPolyline/showPolyline.html">添加线</a></li>
+                    <li><a href="../showPolygon/showPolygon.html">添加多边形</a></li>
+                    <li><a href="#">编辑点线面 </a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                <div id="allmap" style="width: 80%; height: 450px; border: 1px solid;"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">显示标注或多个标注</div>
+                    <div class="panel-body">
+                        使用appendOverlays函数：
+                        <br>
+                        <code>
+                            var data = [[117.278097,39.077101],[117.288097,39.087101]];
+                            <br>
+                            myMap.appendOverlays(data, 'marker');
+                        </code>
+                        <br>
+                        data为数组对象，数组中的元素也为数组，则显示点集，需将第二个参数指定为'marker'
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">改变marker的样式 todo</div>
+                    <div class="panel-body">
+                        <code>
+                            var options = {
+                                icon: ''
+                            };
+                            myMap.appendOverlays(data, 'marker', options);
+                        </code>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">click事件</div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>
+                                声明事件函数
+                                <br>
+                                <code>
+                                    function _markerClick(e) { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.info(e); <br>
+                                    }
+                                </code>
+                            </li>
+                            <li>
+                                声明配置参数对象
+                                <br>
+                                <code>
+                                    var markerOptions = { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;icon: true, <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: _markerClick <br>
+                                    };
+                                </code>
+                            </li>
+                            <li>
+                                添加marker
+                                <br>
+                                <code>
+                                    myMap.appendOverlays([117.278097,39.077101], 'marker', markerOptions);
+                                </code>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">dragend事件</div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>
+                                声明事件函数
+                                <br>
+                                <code>
+                                    function _markerDragend(e) { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.info(e); <br>
+                                    }
+                                </code>
+                            </li>
+                            <li>
+                                声明配置参数对象
+                                <br>
+                                <code>
+                                    var markerOptions = { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;icon: true, <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_dragend: _markerDragend <br>
+                                    };
+                                </code>
+                            </li>
+                            <li>
+                                添加marker
+                                <br>
+                                <code>
+                                    myMap.appendOverlays([117.278097,39.077101], 'marker', markerOptions);
+                                </code>
+                            </li>
+                            <li>
+                                若添加了dragend事件，则marker默认可以拖拽
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">为marker添加tip</div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>
+                                定义HTML模板函数
+                                <br>
+                                <code>
+                                    function getInfoWindowHtml(point) { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;return "&lt;p style='font-size:20px;color:red'&gt;拖动图标来改变经纬度&lt;/p&gt;&lt;p style='font-size:14px;'&gt;经度坐标：&lt;span style='font-size:14px;color:#cc5522;'&gt;" + <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point[0] + "&lt;/span&gt;&lt;/p&gt;&lt;p style='font-size:14px;'&gt;纬度坐标：&lt;span style='font-size:14px;color:#cc5522;'&gt;" + <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point[1] + "&lt;/span&gt;&lt;/p&gt;&lt;p style='text-align:center;'&gt;&lt;/p&gt;"; <br>
+                                    }
+                                </code>
+                            </li>
+                            <li>
+                                在click事件中显示infoTip
+                                <br>
+                                <code>
+                                    function _markerClick(e) { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;myMap.showMarkerTip([e.target.getPosition().lng, e.target.getPosition().lat], getInfoWindowHtml); <br>
+                                    }
+                                </code>
+                                第一个参数为点的经纬度，第二个参数为模板函数
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=OpVm9UjnXj1ACmgEQLH7QSFh"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <script src="../../js/dwzMap.js"></script>
+    <script src="showMarker.js"></script>
+</body>
+</html>
