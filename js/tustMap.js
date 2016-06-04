@@ -95,7 +95,7 @@ tustMap.prototype.drawMarker = function(options) {
     var mouseTool = new AMap.MouseTool(me.currentMap);
     mouseTool.marker(options);
     options._draw && AMap.event.addListener(mouseTool, 'draw', options._draw);
-    options._draw && AMap.event.addListener(mouseTool, 'draw', function(){
+    AMap.event.addListener(mouseTool, 'draw', function(){
         mouseTool.close(false);
         me.currentMap.setDefaultCursor();
     });
@@ -144,6 +144,42 @@ tustMap.prototype.drawPolygon = function(options) {
         me.currentMap.setDefaultCursor();
     });
     me.currentMap.setDefaultCursor("crosshair");
+};
+
+// edit a marker
+tustMap.prototype.editMarker = function(id, options) {
+    var me = this;
+    var markers = me.currentMap.getAllOverlays('marker');
+    if (markers.length === 0) {
+        console.warn('don\'t have any marker!!');
+        return ;
+    }
+    var marker = markers.filter(function(item) {
+        return item.getExtData() === id;
+    });
+    if (marker.length === 0) {
+        console.warn('can\'t find the marker!!');
+        return ;
+    }
+    me.marker = marker[0];
+    marker[0].setDraggable(true);
+    $('.amap-btn').show();
+    var elBtnSave = document.getElementsByClassName('amap-btn-save')[0];
+    var elBtnRemove = document.getElementsByClassName('amap-btn-remove')[0];
+    var elBtnReset = document.getElementsByClassName('amap-btn-reset')[0];
+    AMap.event.addDomListener(elBtnSave, 'click', options._save);
+    AMap.event.addDomListener(elBtnSave, 'click', amapBtnSave);
+    AMap.event.addDomListener(elBtnRemove, 'click', amapBtnRemove);
+    AMap.event.addDomListener(elBtnReset, 'click', options._reset);
+    function amapBtnSave() {
+        marker[0].setDraggable(false);
+        $('.amap-btn').hide();
+    }
+    function amapBtnRemove() {
+        marker[0].setDraggable(false);
+        me.marker.setMap();
+    }
+    return marker[0];
 };
 
 // edit a polyline

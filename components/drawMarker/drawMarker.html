@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>添加线段-tustMap</title>
+    <title>画标注-tustMap</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
     <style>
         .amap-logo, .amap-copyright {
@@ -25,9 +25,11 @@
                 <ul class="nav nav-tabs">
                     <li><a href="../../index.html">初始化地图</a></li>
                     <li><a href="../showMarker/showMarker.html">添加标注</a></li>
-                    <li class="active"><a href="#">添加线段</a></li>
+                    <li><a href="../showPolyline/showPolyline.html">添加线段</a></li>
                     <li><a href="../showPolygon/showPolygon.html">添加多边形</a></li>
-                    <li><a href="#">编辑点线面 </a></li>
+                    <li class="active"><a href="#">画标注</a></li>
+                    <li><a href="../drawPolyline/drawPolyline.html">画线段</a></li>
+                    <li><a href="../drawPolygon/drawPolygon.html">画多边形</a></li>
                 </ul>
             </div>
         </div>
@@ -46,20 +48,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">map.setPolyline(data, options)</div>
+                    <div class="panel-heading">map.drawPolygon(options)</div>
                     <div class="panel-body">
                         <ul>
                             <li>
-                                添加线段
+                                画标注
                                 <br>
                                 <code>
-                                    var polylineData = [ <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;[117.378097,39.177101], <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;[117.478097,39.377101], <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;[117.528097,39.447101], <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;[117.658097,39.657101] <br>
-                                    ]; <br>
-                                    myMap.setPolyline(polylineData);
+                                    myMap.drawMarker();
                                 </code>
                             </li>
                         </ul>
@@ -70,17 +66,14 @@
                     <div class="panel-body">
                         <ul>
                             <li>
-                                目前支持7个参数
+                                目前支持4个参数
                                 <br>
                                 <code>
-                                    var polylineOptions = { <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;strokeColor: String, // 线色，默认值'#3366FF' <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;strokeOpacity: Number, // 线透明度，默认值1 <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;strokeWeight: Number, // 线宽，默认值5 <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;strokeStyle: String, // 线的样式，默认值'solid' <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;strokeDasharray: Array, // 默认值[10, 5] <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;extData: any, // 扩展属性，可以为id <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function // 点击线的事件函数 <br>
+                                    var options = { <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;icon: Object, // 标记的图标，默认值null <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;title: String, // 鼠标移动到标记上的文字，默认值'' <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;extData: any, // 扩展属性，可以为id，默认值null <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_draw: Function // 标记画完的事件，默认值null <br>
                                     };
                                 </code>
                             </li>
@@ -94,6 +87,6 @@
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.3&key=236ec5ae07cc9304abc126307ba7ece1&plugin=AMap.MouseTool,AMap.PolyEditor"></script>
     <script src="../../js/tustMap.js"></script>
-    <script src="showPolyline.js"></script>
+    <script src="drawMarker.js"></script>
 </body>
 </html>

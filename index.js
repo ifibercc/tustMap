@@ -5,6 +5,7 @@ var mapOptions = {
     zoom: 15
 };
 var markerOptions = {
+    extData: '1314',
     _click: _Event
 };
 var polylineOptions = {
@@ -36,7 +37,8 @@ myMap.setMarker([117.278097,39.077101], markerOptions);
 myMap.setPolyline(polylineData, polylineOptions);
 myMap.setPolygon(polygonData, markerOptions);
 // myMap.drawMarker(drawMarkerOptions);
-myMap.editPolyline('12345', editPolylineOptions);
+//myMap.editPolyline('12345', editPolylineOptions);
+myMap.editMarker('1314', editPolylineOptions);
 myMap.currentMap.setFitView();
 //myMap.drawPolyline(drawMarkerOptions);
 // myMap.drawPolygon(drawMarkerOptions);
