@@ -7,6 +7,10 @@ var mapOptions = {
 var markerOptions = {
     _click: _Event
 };
+var polylineOptions = {
+    _click: _Event,
+    extData: '12345'
+};
 var polylineData = [
     [117.378097,39.177101],
     [117.478097,39.377101],
@@ -22,15 +26,35 @@ var polygonData = [
 var drawMarkerOptions = {
     _draw: _Event
 };
+var editPolylineOptions = {
+    _save: _Event,
+    _reset: _Reset
+};
 // create a bmap object
 var myMap = new tustMap(mapOptions);
 myMap.setMarker([117.278097,39.077101], markerOptions);
-myMap.setPolyline(polylineData, markerOptions);
+myMap.setPolyline(polylineData, polylineOptions);
 myMap.setPolygon(polygonData, markerOptions);
-myMap.drawMarker(drawMarkerOptions);
+// myMap.drawMarker(drawMarkerOptions);
+myMap.editPolyline('12345', editPolylineOptions);
+myMap.currentMap.setFitView();
 //myMap.drawPolyline(drawMarkerOptions);
 // myMap.drawPolygon(drawMarkerOptions);
 
+
 function _Event(e){
-    console.info(e);
+    var tempData = myMap.findOverlays('12345');
+    console.info(tempData);
+}
+
+function _Reset(e){
+    myMap.clearMap();
+    // myMap.destroyMap();
+    // myMap = new tustMap(mapOptions);
+    // myMap.setMarker([117.278097,39.077101], markerOptions);
+    myMap.setPolyline(polylineData, polylineOptions);
+    // myMap.setPolygon(polygonData, markerOptions);
+    // // myMap.drawMarker(drawMarkerOptions);
+    // myMap.editPolyline('12345', editPolylineOptions);
+    // myMap.currentMap.setFitView();
 }
