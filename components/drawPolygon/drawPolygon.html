@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>画多边形-tustMap</title>
+    <title>绘制多边形-tustMap</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
     <style>
         .amap-logo, .amap-copyright {
@@ -11,7 +11,6 @@
         .amap-btn {
             position: absolute;
             bottom: 1px;
-            /*right: 40px;*/
             font-size: 12px;
             padding: 10px;
             display: none;
@@ -24,12 +23,36 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li><a href="../../index.html">初始化地图</a></li>
-                    <li><a href="../showMarker/showMarker.html">添加标注</a></li>
-                    <li><a href="../showPolyline/showPolyline.html">添加线段</a></li>
-                    <li><a href="../showPolygon/showPolygon.html">添加多边形</a></li>
-                    <li><a href="../drawMarker/drawMarker.html">画标注</a></li>
-                    <li><a href="../drawPolyline/drawPolyline.html">画线段</a></li>
-                    <li class="active"><a href="#">画多边形</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">标注操作 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../showMarker/showMarker.html">显示标注</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../drawMarker/drawMarker.html">绘制标注</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../editMarker/editMarker.html">编辑标注</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">线段操作 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../showPolyline/showPolyline.html">显示线段</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../drawPolyline/drawPolyline.html">绘制线段</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../editPolyline/editPolyline.html">编辑线段</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多边形操作 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../showPolygon/showPolygon.html">显示多边形</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="active"><a href="#">绘制多边形</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="../editPolygon/editPolygon.html">编辑多边形</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
