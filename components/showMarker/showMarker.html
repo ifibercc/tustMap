@@ -78,7 +78,7 @@
                                 添加简单标注
                                 <br>
                                 <code>
-                                    myMap.setMarker([117.278097,39.077101]);
+                                    var marker = myMap.setMarker([117.278097,39.077101]);
                                 </code>
                             </li>
                         </ul>
@@ -96,13 +96,36 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;icon: Object, // 标记的图标 <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;title: String, // 鼠标移动到标记上的文字 <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;extData: any, // 扩展属性，可以为id <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function // 点击标记的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function, // 点击标记的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_dblclick: Function, // 双击标记的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_dragend: Function // 标记拖动结束的事件函数 <br>
                                     };
                                 </code>
                             </li>
                             <li>
                                 <code>
-                                    myMap.setMarker([117.278097,39.077101], markerOptions);
+                                    var marker = myMap.setMarker([117.278097,39.077101], markerOptions);
+                                </code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">marker相关方法</div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>
+                                拖动设置
+                                <br>
+                                <code>
+                                    marker.setDraggable(true);
+                                </code>
+                            </li>
+                            <li>
+                                获取自定义属性
+                                <br>
+                                <code>
+                                    marker.getExtData();
                                 </code>
                             </li>
                         </ul>

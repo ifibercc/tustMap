@@ -40,6 +40,12 @@ tustMap.prototype.setMarker = function(data, options) {
     if (options._click) {
         marker.on('click', options._click);
     }
+    if (options._dblclick) {
+        marker.on('dblclick', options._dblclick);
+    }
+    if (options._dragend) {
+        marker.on('dragend', options._dragend);
+    }
     marker.setMap(me.currentMap);
     return marker;
 };
@@ -61,6 +67,9 @@ tustMap.prototype.setPolyline = function(data, options) {
     if (options._click) {
         polyline.on('click', options._click);
     }
+    if (options._dblclick) {
+        polyline.on('dblclick', options._dblclick);
+    }
     polyline.setMap(me.currentMap);
     return polyline;
 };
@@ -81,6 +90,9 @@ tustMap.prototype.setPolygon = function(data, options) {
     var polygon = new AMap.Polygon(options);
     if (options._click) {
         polygon.on('click', options._click);
+    }
+    if (options._dblclick) {
+        polygon.on('dblclick', options._dblclick);
     }
     polygon.setMap(me.currentMap);
     return polygon;

@@ -105,8 +105,23 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;strokeStyle: String, // 线的样式，默认值'solid' <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;strokeDasharray: Array, // 默认值[10, 5] <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;extData: any, // 扩展属性，可以为id <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function // 点击线的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function, // 点击线的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_dblclick: Function // 双击线的事件函数 <br>
                                     };
+                                </code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">polyline相关方法</div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>
+                                获取自定义属性
+                                <br>
+                                <code>
+                                    polyline.getExtData();
                                 </code>
                             </li>
                         </ul>

@@ -104,8 +104,23 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;fillColor: String, // 填充色，默认值'#1791fc' <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;fillOpacity: Number, // 默认值0.35 <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;extData: any, // 扩展属性，可以为id <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function // 点击多边形的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_click: Function, // 点击多边形的事件函数 <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;_dblclick: Function // 双击多边形的事件函数 <br>
                                     };
+                                </code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">polygon相关方法</div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>
+                                获取自定义属性
+                                <br>
+                                <code>
+                                    polygon.getExtData();
                                 </code>
                             </li>
                         </ul>
