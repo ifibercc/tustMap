@@ -16,6 +16,9 @@ var tustMap = function (options) {
         return ;
     }
     var map = new AMap.Map(mapId, options);
+    // map.addControl(new AMap.Scale());
+    map.addControl(new AMap.ToolBar());
+    map.addControl(new AMap.OverView());
     me.currentMap = map;
 };
 

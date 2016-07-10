@@ -1,0 +1,27 @@
+{
+  "name": "tustmap",
+  "version": "1.0.0",
+  "description": "a container for AMap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifibercc/tustMap.git"
+  },
+  "keywords": [
+    "gaode",
+    "map",
+    "AMap"
+  ],
+  "author": "Lemoo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ifibercc/tustMap/issues"
+  },
+  "homepage": "https://github.com/ifibercc/tustMap#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
