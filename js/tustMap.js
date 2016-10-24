@@ -3,7 +3,7 @@ var tustMap = function (options) {
     var me = this;
     var mapId = options.id;
     options = $.extend({
-        center: [116.39,39.9],
+        center: [116.39, 39.9],
         zoom: 10
     }, options);
     me.options = options;
@@ -16,12 +16,37 @@ var tustMap = function (options) {
         return ;
     }
     var map = new AMap.Map(mapId, options);
+
+ 
+
     // map.addControl(new AMap.Scale());
     map.addControl(new AMap.ToolBar());
     map.addControl(new AMap.OverView());
     me.currentMap = map;
+  
+
 };
 
+tustMap.prototype.SetSataliteVisible = function (isvisible) {
+    var me = this;
+    var titleLayers = me.currentMap.getLayers();
+    if (isvisible) {
+        if (titleLayers.length = 3) {
+            var satLayer = new AMap.TileLayer.Satellite();
+            titleLayers.push(satLayer);
+            me.currentMap.setLayers(titleLayers);
+        }
+        else {
+            titleLayers[3].show();
+        }
+        //me.currentMap.TileLayer.Satellite.show();
+    }
+    else {
+        titleLayers[3].hide();
+    }
+   
+    return true;
+}
 // draw a marker
 tustMap.prototype.setMarker = function(data, options) {
     var me = this;
@@ -45,6 +70,8 @@ tustMap.prototype.setMarker = function(data, options) {
     }
     if (options._dragend) {
         marker.on('dragend', options._dragend);
+        marker.setDraggable(true);
+
     }
     marker.setMap(me.currentMap);
     return marker;
@@ -53,6 +80,9 @@ tustMap.prototype.setMarker = function(data, options) {
 // draw a polyline
 tustMap.prototype.setPolyline = function(data, options) {
     var me = this;
+    if (data === null || data.length === 0) {
+        return;
+    }
     options = $.extend({
         path: data,
         strokeColor: '#3366FF',
@@ -75,8 +105,11 @@ tustMap.prototype.setPolyline = function(data, options) {
 };
 
 // draw a polygon
-tustMap.prototype.setPolygon = function(data, options) {
+tustMap.prototype.setPolygon = function (data, options) {
     var me = this;
+    if (data === null || data.length === 0) {
+        return;
+    }
     options = $.extend({
         path: data,
         strokeColor: "#FF33FF",
@@ -184,6 +217,7 @@ tustMap.prototype.editMarker = function(id, options) {
     var elBtnReset = document.getElementsByClassName('amap-btn-reset')[0];
     AMap.event.addDomListener(elBtnSave, 'click', options._save);
     AMap.event.addDomListener(elBtnSave, 'click', amapBtnSave);
+    AMap.event.addDomListener(elBtnRemove, 'click', options._remove);
     AMap.event.addDomListener(elBtnRemove, 'click', amapBtnRemove);
     AMap.event.addDomListener(elBtnReset, 'click', options._reset);
     function amapBtnSave() {
@@ -193,6 +227,7 @@ tustMap.prototype.editMarker = function(id, options) {
     function amapBtnRemove() {
         marker[0].setDraggable(false);
         me.marker.setMap();
+        $('.amap-btn').hide();
     }
     return marker[0];
 };
@@ -222,6 +257,7 @@ tustMap.prototype.editPolyline = function(id, options) {
     var elBtnReset = document.getElementsByClassName('amap-btn-reset')[0];
     AMap.event.addDomListener(elBtnSave, 'click', options._save);
     AMap.event.addDomListener(elBtnSave, 'click', amapBtnSave);
+    AMap.event.addDomListener(elBtnRemove, 'click', options._remove);
     AMap.event.addDomListener(elBtnRemove, 'click', amapBtnRemove);
     AMap.event.addDomListener(elBtnReset, 'click', options._reset);
     // polyline[0].on('change', options._change);
@@ -232,6 +268,7 @@ tustMap.prototype.editPolyline = function(id, options) {
     function amapBtnRemove() {
         polylineEditor.close();
         me.polyline.setMap();
+        $('.amap-btn').hide();
     }
     return polyline[0];
 };
@@ -259,6 +296,7 @@ tustMap.prototype.editPolygon = function(id, options) {
     var elBtnRemove = document.getElementsByClassName('amap-btn-remove')[0];
     AMap.event.addDomListener(elBtnSave, 'click', options._save);
     AMap.event.addDomListener(elBtnSave, 'click', amapBtnSave);
+    AMap.event.addDomListener(elBtnRemove, 'click', options._remove);
     AMap.event.addDomListener(elBtnRemove, 'click', amapBtnRemove);
     function amapBtnSave() {
         polygonEditor.close();
@@ -267,6 +305,7 @@ tustMap.prototype.editPolygon = function(id, options) {
     function amapBtnRemove() {
         polygonEditor.close();
         me.polygon.setMap();
+        $('.amap-btn').hide();
     }
     return polygon[0];
 };
@@ -294,10 +333,61 @@ tustMap.prototype.clearMap = function() {
 };
 
 // destory map instance
-tustMap.prototype.destroyMap = function() {
+tustMap.prototype.destroyMap = function () {
     var me = this;
     me.currentMap.destroy();
     $('.amap-btn').hide();
     return true;
-}
+};
+
+tustMap.prototype.OpenInfoWindow = function (info, Lng, Lat) {
+    var me = this;
+    infoWindow = new AMap.InfoWindow({
+        //content: info.join("<br/>")
+       // isCustom: true,  //使用自定义窗体
+        content: info.join("<br/>"),
+        offset: new AMap.Pixel(10, -25)
+        //content: createInfoWindow(title, content.join("<br/>")),
+    });
+    infoWindow.open(me.currentMap, new AMap.LngLat(Lng, Lat));
+    return true;
+};
 tustMap.prototype.constructor = tustMap;
+
+tustMap.testLnglat = function (arr, type) {
+    if (type === 'path') {
+        return arr.every(function (item) {
+            return tester(item)
+        });
+    } else {
+        return tester(arr);
+    }
+    function tester(arr) {
+        if (arr.length !== 2) {
+            return false;
+        }
+        if (typeof arr[0] !== 'number' && typeof arr[0] !== 'string') {
+            return false;
+        }
+        if (typeof arr[1] !== 'number' && typeof arr[1] !== 'string') {
+            return false;
+        }
+        if (!/^[\-\+]?(0?\d{1,2}\.\d{1,5}|1[0-7]?\d{1}\.\d{1,8}|180\.0{1,8})$/.test(String(arr[0]))) {
+            return false;
+        }
+        if (!/^[\-\+]?([0-8]?\d{1}\.\d{1,8}|90\.0{1,8})$/.test(String(arr[1]))) {
+            return false;
+        }
+        return true;
+    }
+};
+
+tustMap.filterLnglat = function (arr) {
+    var newArr = [];
+    arr.forEach(function (item) {
+        if (tustMap.testLnglat(item)) {
+            newArr.push(item);
+        }
+    });
+    return newArr;
+}
